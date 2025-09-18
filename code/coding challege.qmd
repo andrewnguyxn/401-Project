@@ -1,0 +1,50 @@
+---
+title: "coding challenge 401"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+data <- read.csv('/Users/andrewnguyen/Downloads/starbucks_locations.csv')
+```
+
+You can add options to executable code like this
+
+```{r}
+nearest_stores <- function(lat, lon, data, N = 5) {
+  # Euclidean distance in the same lat/lon coordinate system
+  dists <- sqrt((data$Latitude - lat)^2 + (data$Longitude - lon)^2)
+  
+  # Rank by distance
+  idx <- order(dists)[1:min(N, nrow(data))]
+  
+  out <- data.frame(
+    store.name = data$Store.Name[idx],
+    latitude   = data$Latitude[idx],
+    longitude  = data$Longitude[idx],
+    distance   = dists[idx]
+  )
+  
+  return(out)
+}
+
+
+print(nearest_stores(12,45,data,12))
+
+```
+
+```{r}
+```
+
+```{}
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
